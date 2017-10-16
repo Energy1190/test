@@ -3,7 +3,7 @@ FROM debian:stretch
 ENV DOKUWIKI_VERSION=2017-02-19e
 
 ADD dokuwiki.conf /etc/apache2/sites-available/dokuwiki.conf
-ADD /etc/dokuwiki.php /etc/dokuwiki/dokuwiki.php
+ADD /etc /etc/dokuwiki
 
 RUN apt-get update && \
     apt-get install -y apache2 curl php7.0 libapache2-mod-php7.0 php7.0-mcrypt php7.0-cli
@@ -18,6 +18,8 @@ RUN cp -r ./dokuwiki-${DOKUWIKI_VERSION} /usr/share/dokuwiki \
 
 RUN a2dissite 000-default \
     && a2ensite dokuwiki
+
+ADD preload.php /usr/share/dokuwiki/inc/preload.php
 
 EXPOSE 80
 
