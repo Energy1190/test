@@ -2,6 +2,7 @@ FROM debian:stretch
 
 ENV DOKUWIKI_VERSION=2017-02-19e
 
+ADD entrypoint.sh /entrypoint.sh
 ADD dokuwiki.conf /etc/apache2/sites-available/dokuwiki.conf
 ADD /etc /etc/dokuwiki
 
@@ -13,14 +14,20 @@ RUN curl -s -o dokuwiki.tgz https://download.dokuwiki.org/src/dokuwiki/dokuwiki-
     && rm -f ./dokuwiki.tgz
 
 RUN cp -r ./dokuwiki-${DOKUWIKI_VERSION} /usr/share/dokuwiki \
-    && chown :www-data -R /usr/share/dokuwiki \
-    && rm -rf ./dokuwiki-${DOKUWIKI_VERSION}
+    && rm -rf ./dokuwiki-${DOKUWIKI_VERSION} \
+	&& rm -rf /usr/share/dokuwiki/lib/plugins \
+	&& rm -rf /usr/share/dokuwiki/lib/tpl
 
 RUN a2dissite 000-default \
     && a2ensite dokuwiki
 
+RUN mkdir -p /var/lib/dokuwiki \
+    && chown www-data:www-data -R /etc/dokuwiki \
+	&& chown www-data:www-data -R /var/lib/dokuwiki \
+	&& chown www-data:www-data -R /usr/share/dokuwiki
+	
 ADD preload.php /usr/share/dokuwiki/inc/preload.php
 
 EXPOSE 80
 
-CMD ["apachectl -DFOREGROUND"]
+CMD ["/entrypoint.sh"]
