@@ -7,7 +7,7 @@ ADD dokuwiki.conf /etc/apache2/sites-available/dokuwiki.conf
 ADD /etc /etc/dokuwiki
 
 RUN apt-get update && \
-    apt-get install -y apache2 curl php7.0 libapache2-mod-php7.0 php7.0-mcrypt php7.0-cli
+    apt-get install -y apache2 curl php7.0 libapache2-mod-php7.0 php7.0-mcrypt php7.0-cli php7.0-ldap
 
 RUN curl -s -o dokuwiki.tgz https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz \
     && tar -xvzf ./dokuwiki.tgz \
