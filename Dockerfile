@@ -15,16 +15,17 @@ RUN curl -s -o dokuwiki.tgz https://download.dokuwiki.org/src/dokuwiki/dokuwiki-
 
 RUN cp -r ./dokuwiki-${DOKUWIKI_VERSION} /usr/share/dokuwiki \
     && rm -rf ./dokuwiki-${DOKUWIKI_VERSION} \
-	&& rm -rf /usr/share/dokuwiki/lib/plugins \
-	&& rm -rf /usr/share/dokuwiki/lib/tpl
+    && rm -rf /usr/share/dokuwiki/lib/plugins \
+    && rm -rf /usr/share/dokuwiki/lib/tpl
 
 RUN a2dissite 000-default \
     && a2ensite dokuwiki
 
 RUN mkdir -p /var/lib/dokuwiki \
     && chown www-data:www-data -R /etc/dokuwiki \
-	&& chown www-data:www-data -R /var/lib/dokuwiki \
-	&& chown www-data:www-data -R /usr/share/dokuwiki
+    && chown www-data:www-data -R /var/lib/dokuwiki \
+    && chown www-data:www-data -R /usr/share/dokuwiki \
+    && chmod +x /entrypoint.sh
 	
 ADD preload.php /usr/share/dokuwiki/inc/preload.php
 
