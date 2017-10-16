@@ -3,7 +3,7 @@
 function remove_link {
 if [[ -L "$1" && -d "$1" ]]
 then
-ulink $1
+unlink $1
 fi
 }
 
@@ -15,6 +15,6 @@ ln -s /var/lib/dokuwiki/lib/plugins /usr/share/dokuwiki/lib/plugins
 ln -s /var/lib/dokuwiki/lib/tpl /usr/share/dokuwiki/lib/tpl
 
 remove_link /var/lib/dokuwiki/lib/tpl/tpl
-remove_link /var/lib/dokuwiki/lib/tpl/plugins
+remove_link /var/lib/dokuwiki/lib/plugins/plugins
 
 apachectl -DFOREGROUND
