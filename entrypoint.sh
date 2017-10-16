@@ -9,6 +9,7 @@ fi
 
 ln -fs /var/lib/dokuwiki/conf/users.auth.php /etc/dokuwiki/users.auth.php
 ln -fs /var/lib/dokuwiki/conf/acl.auth.php /etc/dokuwiki/acl.auth.php
+ln -fs /var/lib/dokuwiki/conf/plugins.local.php /etc/dokuwiki/plugins.local.php
 ln -fs /var/lib/dokuwiki/conf/local.php /etc/dokuwiki/local.php
 
 ln -s /var/lib/dokuwiki/lib/plugins /usr/share/dokuwiki/lib/plugins
